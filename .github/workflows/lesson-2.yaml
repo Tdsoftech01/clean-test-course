@@ -1,22 +1,22 @@
-name: Lesson 2
-
-on:
-  push:
-    branches:
-      - lesson-2
 jobs:
-  deploy:
+  build_and_test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: backend
     steps:
       - uses: actions/checkout@v4
-      - name: Disable Debug
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
         run: |
-          sed -i 's/DEBUG = True/DEBUG = False/g' hangry_api/hangry_api/settings.py
-      - name: Generate deployment package
-        run: zip -r deploy.zip . -x '*.git*'
-      - name: '**PLACEHOLDER** Deploy to Elastic Beanstalk'
-        run: echo Placeholder for Deployment
-added and automated unit tests
+          python -m pip install --upgrade pip
+          pip install pytest django_mock_queries six coverage
+        working-directory: backend
+      - name: Run unit tests
+        run: |
+          coverage run --source=./hangry_api -m pytest
+          coverage report
+        working-directory: backend
+  deploy:
+    needs: build_and_test
+    runs-on: ubuntu-latest
+    # ... rest of deploy job ...
