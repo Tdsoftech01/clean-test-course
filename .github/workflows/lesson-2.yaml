@@ -20,3 +20,6 @@ jobs:
   deploy:
     needs: build_and_test
     runs-on: ubuntu-latest
+    steps:
+      - name: Dummy deploy step
+        run: echo "Deploy step placeholder"
