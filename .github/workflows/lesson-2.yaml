@@ -1,3 +1,4 @@
+# added and automated unit tests
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
@@ -19,4 +20,3 @@ jobs:
   deploy:
     needs: build_and_test
     runs-on: ubuntu-latest
-    # ... rest of deploy job ...
