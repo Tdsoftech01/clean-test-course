@@ -4,18 +4,24 @@ on:
   push:
     branches:
       - lesson-3
+
 jobs:
-function_test:
+  function_test:
     runs-on: ubuntu-latest
+    # Add your steps for function_test here
+    steps:
+      - uses: actions/checkout@v4
+      # Add more steps as needed, e.g., npm install, npm test
+
   deploy:
-  needs: [function_test]
+    needs: [function_test]
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: frontend
     steps:
       - uses: actions/checkout@v4
-#      - run: npm install && npm run build (commented out to save learner time)
+      # - run: npm install && npm run build (commented out to save learner time)
       - name: Generate deployment package
         run: zip -r deploy.zip build Dockerfile
       - name: '**PLACEHOLDER** Deploy to Elastic Beanstalk'
