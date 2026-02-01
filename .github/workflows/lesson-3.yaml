@@ -5,7 +5,10 @@ on:
     branches:
       - lesson-3
 jobs:
+function_test:
+    runs-on: ubuntu-latest
   deploy:
+  needs: [function_test]
     runs-on: ubuntu-latest
     defaults:
       run:
