@@ -11,6 +11,10 @@ steps:
 - name: PyCharm Python Security Scanner
   uses: tonybaloney/pycharm-security@1.25.1
   - uses: actions/checkout@v4
+  - name: disable debug
+  run: |
+    sed -i 's/DEBUG = True/DEBUG = False/g' \
+    hangry_api/hangry_api/settings.py
   build_and_test:
   needs: security-test
     runs-on: ubuntu-latest
