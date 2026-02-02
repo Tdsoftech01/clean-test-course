@@ -5,7 +5,14 @@ on:
     branches:
       - lesson-5
 jobs:
+security-test:
+name: Execute the PyCharm security test
+steps:
+- name: PyCharm Python Security Scanner
+  uses: tonybaloney/pycharm-security@1.25.1
+  - uses: actions/checkout@v4
   build_and_test:
+  needs: security-test
     runs-on: ubuntu-latest
     defaults:
       run:
