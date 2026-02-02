@@ -15,6 +15,21 @@ jobs:
 #      - run: npm install
 #      - name: Run functional tests
 #        run: npm test -- --coverage --watchAll=false
+cypress_test:
+  runs-on: ubuntu-latest
+  defaults:
+    run:
+      working-directory: frontend
+  steps:
+    - uses: actions/checkout@v4
+    - run: npm install
+    - name: Run Cypress tests
+      run: npx cypress run
+    - name: Upload Cypress Videos
+      uses: actions/upload-artifact@v3
+      with:
+        name: cypress-videos
+        path: frontend/cypress/videos
   deploy:
 #    needs: [function_test]
     runs-on: ubuntu-latest
